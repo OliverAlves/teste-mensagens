@@ -5,7 +5,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Text, StyleSheet, Button } from "react-native";
 import { AppProvider, useAppContext } from "./AppContext";
 import { useChatClient } from "./useChatClient";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import {
   OverlayProvider,
@@ -43,6 +42,9 @@ const ChannelListScreen = (props) => {
 
   return (
     <ChannelList
+      style={{
+        zIndex: 1,
+      }}
       onSelect={(channel) => {
         const { navigation } = props;
         setChannel(channel);
@@ -79,9 +81,7 @@ const ChannelScreen = (props) => {
     });
   };
 
-  useEffect(() => {
-    buscarDadosChamado();
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <Channel channel={channel}>
@@ -234,7 +234,7 @@ const NavigationStack = () => {
   }
 
   return (
-    <OverlayProvider>
+    <OverlayProvider style={{ zIndex: 99 }}>
       <Chat client={chatClient} i18nInstance={streami18n}>
         <Stack.Navigator>
           <Stack.Screen name="ChannelList" component={ChannelListScreen} />
